@@ -19,7 +19,7 @@
         Изде: <input type="text" data-ng-model="search.name"/>
     <ul>
         <li data-ng-repeat="book in books | filter:search ">
-            <!--<a href="#{{book._id}}">{{book.name}}</a>-->
+
             <a  href="#/{{book._id}}">{{book.name}}</a>
 
 
@@ -77,7 +77,7 @@
                 ])
                 .controller('BookCtrl',['$scope','Books', function ($scope, Books) {
                     $scope.editing=[];
-                    $scope.updateable = false;
+                    
                     $scope.books = Books.query();
                     $scope.save = function () {
                         if(!$scope.newBook || $scope.newBook.length<1) return;
@@ -91,20 +91,11 @@
                         });
 
                     }
-                    $scope.update = function(index){
-                        var todo = $scope.todos[index];
-                        Todos.update({id: todo._id}, todo);
-                        $scope.editing[index] = false;
-                    }
 
-                    $scope.edit = function(index){
-                        $scope.editing[index] = angular.copy($scope.todos[index]);
-                    }
 
-                    $scope.cancel = function(index){
-                        $scope.todos[index] = angular.copy($scope.editing[index]);
-                        $scope.editing[index] = false;
-                    }
+
+
+
                 }])
                 .controller('BooksDetail', ['$scope','$routeParams','Books', function ($scope,$routeParams,Books) {
                    $scope.editing = [];
