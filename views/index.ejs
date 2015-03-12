@@ -33,18 +33,35 @@
     <button data-ng-click="save()">Кош</button>
 </script>
   <script type="text/ng-template" id="/bookDetails.html">
-<li >аты:   {{book.name}}</li>
-<button data-ng-click="update($index)" data-ng-show="!editing[$index]" >Ozgort</button>
-<input type="text" data-ng-model="newName" data-ng-show="editing[$index]" />
-<button data-ng-show="editing[$index]" data-ng-click="save($index)">save</button>
-<button data-ng-show="editing[$index]" data-ng-click="cancel($index)">cancel</button>
+<li  >аты:   {{book.name}}
+<button data-ng-click="update(1)" data-ng-show="!editing[1]" >Ozgort</button>
+<input type="text" data-ng-model="name" data-ng-show="editing[1]" />
+<button data-ng-show="editing[1]" data-ng-click="save(1)">save</button>
+<button data-ng-show="editing[1]" data-ng-click="cancel(1)">cancel</button>
+</li>
 
 
 
+<li >автору:  {{book.author}}
+    <button data-ng-click="update(2)" data-ng-show="!editing[2]" >Ozgort</button>
+    <input type="text" data-ng-model="author" data-ng-show="editing[2]" />
+    <button data-ng-show="editing[2]" data-ng-click="save(2)">save</button>
+    <button data-ng-show="editing[2]" data-ng-click="cancel(2)">cancel</button></li>
 
-<li>автору:  {{book.author}}<input type="text" data-ng-model="newAuthor"/></li>
-<li>жанры:  {{book.genre}}<input type="text" data-ng-model="newGenre"/></li>
-<li>басмаканасы:  {{book.publisher}}<input type="text" data-ng-model="newPublisher"/></li>
+
+<li>жанры:  {{book.genre}}
+
+    <button data-ng-click="update(3)" data-ng-show="!editing[3]" >Ozgort</button>
+    <input type="text" data-ng-model="genre" data-ng-show="editing[3]" />
+    <button data-ng-show="editing[3]" data-ng-click="save(3)">save</button>
+    <button data-ng-show="editing[3]" data-ng-click="cancel(3)">cancel</button></li>
+
+<li>басмаканасы:  {{book.publisher}}
+
+    <button data-ng-click="update(4)" data-ng-show="!editing[4]" >Ozgort</button>
+    <input type="text" data-ng-model="publisher" data-ng-show="editing[4]" />
+    <button data-ng-show="editing[4]" data-ng-click="save(4)">save</button>
+    <button data-ng-show="editing[4]" data-ng-click="cancel(4)">cancel</button></li>
 
 <a href="/">Cancel</a>
 </script>
@@ -95,18 +112,59 @@
 
                     $scope.update = function (index) {
                             $scope.editing[index]=true;
+
                     };
                     $scope.save = function (index) {
-                        Books.update({id:$routeParams.id},{name:$scope.newName}, function () {
-                            $scope.book.name = $scope.newName;
-                            $scope.newName='';
-                        });
+
+
+                        switch (index){
+                            case 1:
+                                Books.update({id:$routeParams.id},{name:$scope.name}, function () {
+                                    $scope.book.name = $scope.name;
+
+                                });
+                                break;
+                            case 2:
+                                Books.update({id:$routeParams.id},{author:$scope.author}, function () {
+                                    $scope.book.author = $scope.author;
+
+                                });
+                                break;
+                            case 3:
+                                Books.update({id:$routeParams.id},{genre:$scope.genre}, function () {
+                                    $scope.book.genre = $scope.genre;
+
+                                });
+                                break;
+                            case 4:
+                                Books.update({id:$routeParams.id},{publisher:$scope.publisher}, function () {
+                                    $scope.book.publisher = $scope.publisher;
+
+                                });
+                                break;
+                        }
+
                         $scope.editing[index]=false;
 
                     };
                     $scope.cancel= function (index) {
+
+                        switch (index){
+                            case 1:
+                               $scope.name='';
+                                break;
+                            case 2:
+                                $scope.author='';
+                                break;
+                            case 3:
+                                $scope.genre='';
+                                break;
+                            case 4:
+                                $scope.publisher='';
+                                break;
+                        }
                         $scope.editing[index]=false;
-                        $scope.newName='';
+
 
 
                     }
